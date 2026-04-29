@@ -1,0 +1,12 @@
+.page-title {
+  margin-bottom: 24px;
+}
+
+mat-card {
+  padding: 18px;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}

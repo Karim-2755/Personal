@@ -1,0 +1,7 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="brand">Expense Tracker</span>
+  <span class="spacer"></span>
+  <button mat-icon-button *ngIf="authService.isAuthenticated()" (click)="authService.logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

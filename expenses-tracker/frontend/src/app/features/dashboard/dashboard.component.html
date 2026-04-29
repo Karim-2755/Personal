@@ -1,0 +1,42 @@
+<div class="section-card">
+  <h1 class="page-title">Dashboard</h1>
+  <div class="flex-row" style="gap:20px; margin-bottom:24px;">
+    <mat-card class="flex-col" style="flex:1; min-width:220px;">
+      <h3>Today Total</h3>
+      <p class="page-title">₹ {{ totals.today | number:'1.0-2' }}</p>
+    </mat-card>
+    <mat-card class="flex-col" style="flex:1; min-width:220px;">
+      <h3>This Month</h3>
+      <p class="page-title">₹ {{ totals.month | number:'1.0-2' }}</p>
+    </mat-card>
+    <mat-card class="flex-col" style="flex:1; min-width:220px;">
+      <h3>Total Expenses</h3>
+      <p class="page-title">₹ {{ totals.total | number:'1.0-2' }}</p>
+    </mat-card>
+    <mat-card class="flex-col" style="flex:1; min-width:220px;">
+      <h3>Highest Category</h3>
+      <p class="page-title">{{ totals.highestCategory }}</p>
+    </mat-card>
+  </div>
+
+  <section>
+    <h2>Recent Expenses</h2>
+    <div *ngIf="recentExpenses.length; else noExpenses">
+      <mat-card *ngFor="let expense of recentExpenses" style="margin-bottom:12px;">
+        <div class="flex-row" style="justify-content: space-between; align-items: center;">
+          <div>
+            <strong>{{ expense.category }}</strong>
+            <div class="text-muted">{{ expense.date | date:'mediumDate' }}</div>
+          </div>
+          <div>
+            <span>₹ {{ expense.amount | number:'1.0-2' }}</span>
+          </div>
+        </div>
+        <p class="text-muted" style="margin: 8px 0 0;">{{ expense.note }}</p>
+      </mat-card>
+    </div>
+    <ng-template #noExpenses>
+      <p class="text-muted">No expenses recorded yet.</p>
+    </ng-template>
+  </section>
+</div>

@@ -1,0 +1,93 @@
+:root {
+  --primary: #1d4ed8;
+  --primary-contrast: #ffffff;
+  --surface: #f8fafc;
+  --surface-alt: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --card-radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--surface);
+  color: var(--text);
+}
+
+html, body {
+  min-height: 100%;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 940px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+main {
+  padding: 24px;
+  background: var(--surface);
+}
+
+.page-title {
+  margin: 0 0 20px;
+  font-size: clamp(2rem, 2.5vw, 2.4rem);
+}
+
+.section-card {
+  background: var(--surface-alt);
+  padding: 20px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  margin-bottom: 24px;
+}
+
+.flex-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.error-message {
+  color: var(--danger);
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-card {
+  border-radius: 18px;
+}

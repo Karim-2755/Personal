@@ -1,0 +1,29 @@
+<div class="section-card">
+  <h1 class="page-title">Reports</h1>
+  <div class="flex-row" style="gap:24px; margin-bottom:24px; flex-wrap: wrap;">
+    <mat-card style="flex:1; min-width:300px;">
+      <h3>Monthly Trends</h3>
+      <canvas baseChart [data]="monthlyData" [options]="chartOptions" chartType="bar"></canvas>
+    </mat-card>
+    <mat-card style="flex:1; min-width:300px;">
+      <h3>Category Breakdown</h3>
+      <canvas baseChart [data]="categoryData" [options]="pieOptions" chartType="pie"></canvas>
+    </mat-card>
+  </div>
+  <mat-card class="section-card" style="padding:18px;">
+    <h3>Date Range Summary</h3>
+    <form [formGroup]="dateRangeForm" class="flex-row" style="align-items:flex-end; gap:16px; flex-wrap: wrap;">
+      <mat-form-field appearance="fill" style="flex:1; min-width:200px;">
+        <mat-label>From</mat-label>
+        <input matInput type="date" formControlName="from" />
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="flex:1; min-width:200px;">
+        <mat-label>To</mat-label>
+        <input matInput type="date" formControlName="to" />
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="applyRange()" type="button">Update</button>
+    </form>
+    <p style="margin-top:16px;">Total in selected range: <strong>₹ {{ summary.total | number:'1.0-2' }}</strong></p>
+    <p>Categories present: <strong>{{ summary.categories }}</strong></p>
+  </mat-card>
+</div>

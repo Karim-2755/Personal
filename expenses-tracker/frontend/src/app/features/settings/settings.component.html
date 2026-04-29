@@ -1,0 +1,33 @@
+<div class="section-card" style="max-width: 640px; margin: 24px auto;">
+  <h1 class="page-title">Settings</h1>
+  <mat-card>
+    <div class="flex-row" style="justify-content: space-between; align-items: center; padding: 18px;">
+      <div>
+        <h3>Dark Mode</h3>
+        <p class="text-muted">Toggle between light and dark appearance.</p>
+      </div>
+      <mat-slide-toggle [checked]="darkMode" (change)="toggleDarkMode($event.checked)"></mat-slide-toggle>
+    </div>
+  </mat-card>
+
+  <mat-card style="margin-top:24px; padding:18px;">
+    <h3>Change Password</h3>
+    <form [formGroup]="passwordForm" class="flex-col">
+      <mat-form-field appearance="fill">
+        <mat-label>Current Password</mat-label>
+        <input matInput type="password" formControlName="currentPassword" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>New Password</mat-label>
+        <input matInput type="password" formControlName="newPassword" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" />
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="button" (click)="updatePassword()">Update Password</button>
+      <p class="error-message" *ngIf="error">{{ error }}</p>
+      <p *ngIf="success" style="color: #16a34a;">{{ success }}</p>
+    </form>
+  </mat-card>
+</div>

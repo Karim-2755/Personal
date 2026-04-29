@@ -1,0 +1,16 @@
+<ng-container *ngIf="authService.isAuthenticated(); else guestLayout">
+  <div class="app-shell">
+    <app-sidebar></app-sidebar>
+    <div>
+      <app-navbar></app-navbar>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</ng-container>
+<ng-template #guestLayout>
+  <main style="padding: 24px;">
+    <router-outlet></router-outlet>
+  </main>
+</ng-template>
