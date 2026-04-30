@@ -16,7 +16,7 @@ export class ExpenseListComponent implements OnInit {
   from = '';
   to = '';
 
-  constructor(private expenseService: ExpenseService, private router: Router) {}
+  constructor(private expenseService: ExpenseService, public router: Router) {}
 
   ngOnInit(): void {
     this.loadExpenses();

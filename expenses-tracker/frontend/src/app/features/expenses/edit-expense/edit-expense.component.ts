@@ -15,7 +15,7 @@ export class EditExpenseComponent implements OnInit {
   categories = ['Food', 'Transport', 'Bills', 'Shopping', 'Other'];
 
   form = this.fb.group({
-    amount: [null, [Validators.required, Validators.min(0.01)]],
+    amount: [0, [Validators.required, Validators.min(0.01)]],
     category: ['', Validators.required],
     date: [new Date(), Validators.required],
     note: ['']
@@ -47,7 +47,13 @@ export class EditExpenseComponent implements OnInit {
     }
 
     this.loading = true;
-    const expense = { ...this.form.value, date: this.form.value.date.toISOString() };
+    const date = this.form.value.date instanceof Date ? this.form.value.date.toISOString() : new Date(this.form.value.date!).toISOString();
+    const expense = {
+      amount: this.form.value.amount as number,
+      category: this.form.value.category as string,
+      date: date,
+      note: this.form.value.note
+    };
     this.expenseService.update(this.id, expense).subscribe({
       next: () => this.router.navigate(['/expenses']),
       error: (err) => {

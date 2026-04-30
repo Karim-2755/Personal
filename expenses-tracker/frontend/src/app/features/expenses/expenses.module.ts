@@ -14,9 +14,10 @@ import { ExpensesRoutingModule } from './expenses-routing.module';
 import { ExpenseListComponent } from './expense-list/expense-list.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { EditExpenseComponent } from './edit-expense/edit-expense.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [ExpenseListComponent, AddExpenseComponent, EditExpenseComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ExpensesRoutingModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatTableModule, MatIconModule, MatDatepickerModule, MatNativeDateModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ExpensesRoutingModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatTableModule, MatIconModule, MatDatepickerModule, MatNativeDateModule, SharedModule]
 })
 export class ExpensesModule {}

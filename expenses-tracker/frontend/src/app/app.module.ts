@@ -10,15 +10,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { LoaderComponent } from './shared/loader/loader.component';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, SidebarComponent, LoaderComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, MatSnackBarModule, MatIconModule, MatProgressSpinnerModule, MatToolbarModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, MatSnackBarModule, MatIconModule, MatProgressSpinnerModule, MatToolbarModule, SharedModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

@@ -30,7 +30,13 @@ export class AddExpenseComponent {
     }
 
     this.loading = true;
-    const expense = { ...this.form.value, date: this.form.value.date.toISOString() };
+    const date = this.form.value.date instanceof Date ? this.form.value.date.toISOString() : new Date(this.form.value.date!).toISOString();
+    const expense = {
+      amount: this.form.value.amount as number,
+      category: this.form.value.category as string,
+      date: date,
+      note: this.form.value.note
+    };
     this.expenseService.create(expense).subscribe({
       next: () => this.router.navigate(['/expenses']),
       error: (err) => {
