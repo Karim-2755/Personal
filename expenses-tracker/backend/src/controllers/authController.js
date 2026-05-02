@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const memoryStore = require('../utils/memoryStore');
+const { useMockDB } = require('../config/db');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'secretkey', { expiresIn: '7d' });
@@ -13,14 +15,30 @@ exports.register = async (req, res, next) => {
       return res.status(400).json({ message: 'Name, email, and password are required.' });
     }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already in use.' });
-    }
+    let existingUser;
+    let user;
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const user = await User.create({ name, email, password: hashedPassword });
+    if (useMockDB()) {
+      // Use in-memory store
+      existingUser = await memoryStore.findOne('users', { email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Email already in use.' });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      user = await memoryStore.create('users', { name, email, password: hashedPassword });
+    } else {
+      // Use Mongoose/MongoDB
+      existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Email already in use.' });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      user = await User.create({ name, email, password: hashedPassword });
+    }
 
     res.status(201).json({ message: 'Registration successful', user: { id: user._id, name: user.name, email: user.email } });
   } catch (error) {
@@ -35,7 +53,16 @@ exports.login = async (req, res, next) => {
       return res.status(400).json({ message: 'Email and password are required.' });
     }
 
-    const user = await User.findOne({ email });
+    let user;
+
+    if (useMockDB()) {
+      // Use in-memory store
+      user = await memoryStore.findOne('users', { email });
+    } else {
+      // Use Mongoose/MongoDB
+      user = await User.findOne({ email });
+    }
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }

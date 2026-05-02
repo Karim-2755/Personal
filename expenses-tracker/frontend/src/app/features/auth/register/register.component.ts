@@ -58,7 +58,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.error = err.message || err.error || 'Registration failed';
+        this.error = err.error?.message || err.message || 'Registration failed';
       }
     });
   }

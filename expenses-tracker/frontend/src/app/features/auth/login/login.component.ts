@@ -32,7 +32,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.error = err.message || err.error || 'Unable to login';
+        this.error = err.error?.message || err.message || 'Unable to login';
       }
     });
   }
