@@ -38,7 +38,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "expense-tracker-frontend:build"
+            "browserTarget": "expense-tracker-frontend:build",
+            "port": 1877
           },
           "configurations": {
             "production": {

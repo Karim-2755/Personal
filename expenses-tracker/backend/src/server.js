@@ -3,13 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const path = require('path');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 console.log('All modules loaded');
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const startServer = async () => {
   try {
@@ -18,7 +19,27 @@ const startServer = async () => {
     console.log('Database connected');
 
     const app = express();
-    app.use(cors());
+    const allowedOrigins = [
+      'http://localhost:4200',
+      'http://localhost:5828',
+      'http://localhost:1877',
+      'http://127.0.0.1:1877',
+      'http://127.0.0.1:5828',
+      'http://127.0.0.1:4200'
+    ];
+
+    app.use(cors({
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error(`CORS blocked for origin: ${origin}`));
+        }
+      },
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    }));
+    app.options('*', cors());
     app.use(express.json());
     app.use(morgan('dev'));
 
